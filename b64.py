@@ -1,5 +1,9 @@
 import string
+import sys
+from colorama import Fore, init
 
+
+init(convert=True)
 
 def __decode_cal(bin_str:str):
     s = []
@@ -68,4 +72,33 @@ def decoder(text:str):
     return decoded
     
 
+def main():
+    if len(sys.argv) < 3 or len(sys.argv) > 3:
+        print(f'{Fore.RED}[*] The required entries are <mode:decode or encode> <entry:text or cipher>{Fore.RESET}')
+        exit(1)
+    if sys.argv[1] == 'encode':
+        try:
+            cipher = encoder(sys.argv[2])
+            print(f'{Fore.GREEN}[$] The operation is done.{Fore.RESET}')
+            print(f'{Fore.GREEN} Cipher --> {cipher}{Fore.RESET}')
+            exit(0)
+        except:
+            print(f'{Fore.RED}[*] Something is wrong. check the entry and try again.{Fore.RESET}')
+            exit(1)
+    elif sys.argv[1] == 'decode':
+        try:
+            cipher = decoder(sys.argv[2])
+            print(f'{Fore.GREEN}[$] The operation is done.{Fore.RESET}')
+            print(f'{Fore.GREEN} Text --> {cipher}{Fore.RESET}')
+            exit(0)
+        except:
+            print(f'{Fore.RED}[*] Something is wrong. check the entry and try again.{Fore.RESET}')
+            exit(1)
+    else:
+        print('{Fore.RED}[*] You didn\'t specified the mode correctly.{Fore.RED}')
+        exit(1)
+
+
+if __name__ == '__main__':
+    main()
 
